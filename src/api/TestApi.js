@@ -1,8 +1,6 @@
 import axios from "axios";
 
-const api = axios.create({
-  baseURL: `https://localhost:443/`,
-});
+const api = axios;
 
 export async function fetchTest() {
   try {
