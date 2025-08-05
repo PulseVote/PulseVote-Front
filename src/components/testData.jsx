@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchTest } from "../api/testApi.js";
+import { fetchTest } from "../api/TestApi.js";
 
 export default function DisplayTestData() {
   const [serverMessage, setMessage] = useState("Loading...");
