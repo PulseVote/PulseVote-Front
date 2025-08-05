@@ -1,18 +1,15 @@
-import { createBrowserRouter, RouterProvider } from "react-router";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import React, { Children } from "react";
-import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
-import { BrowserRouter, Routes } from "react-router";
-import ReactDom from "react-dom/client";
+import ReactDOM from "react-dom/client";
 import AuthLayout from "./layout/AuthLayout.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: App, // i will add an about page soon
+    Component: App, // i will add an about page soon
     children: [
       {
         path: "auth",
@@ -32,4 +29,4 @@ const router = createBrowserRouter([
   },
 ]);
 const root = document.getElementById("root");
-ReactDom.createRoot(root).render(<RouterProvider router={router} />);
+ReactDOM.createRoot(root).render(<RouterProvider router={router} />);

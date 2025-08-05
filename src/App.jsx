@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
+import AuthLayout from "./layout/AuthLayout";
+import { Outlet } from "react-router-dom";
+import TextInput from "./components/input";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -24,9 +27,8 @@ function App() {
         </button>
         <h2>Welcome to PulseVote</h2>
       </div>
-      <div className="read-the-docs">
-      
-      </div>
+
+      <Outlet />
     </>
   );
 }

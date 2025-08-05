@@ -1,9 +1,9 @@
-import { TestData } from "../components/input.jsx";
+import TextInput from "../components/input.jsx";
 export default function Register() {
   return (
     <>
       <div>
-        <TestData />
+        <TextInput />
       </div>
     </>
   );
