@@ -25,7 +25,7 @@ function App() {
         </button>
         <h2>Welcome to PulseVote</h2>
       </div>
-      <p className="read-the-docs">{<DisplayTestData />}</p>
+      <div className="read-the-docs">{<DisplayTestData />}</div>
     </>
   );
 }

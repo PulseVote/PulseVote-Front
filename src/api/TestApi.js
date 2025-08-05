@@ -1,17 +1,16 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: `http://localhost:5000/`,
+  baseURL: `https://localhost:443/`,
 });
 
 export async function fetchTest() {
   try {
     const response = await api.get("/hello");
-    console.log(response);
-    return response.data;
+    const data = response.data;
+    console.log(data.message);
+    return data.message;
   } catch (error) {
     console.error(error);
   }
 }
-
-

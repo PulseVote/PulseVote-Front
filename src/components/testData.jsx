@@ -10,7 +10,8 @@ export default function DisplayTestData() {
   });
   return (
     <div>
-      <h2>{serverMessage}</h2>
+      <h2>The server says</h2>
+      <p>{serverMessage}</p>
     </div>
   );
 }
