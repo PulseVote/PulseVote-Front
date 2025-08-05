@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import DisplayTestData from "./components/testData.jsx";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -25,7 +24,9 @@ function App() {
         </button>
         <h2>Welcome to PulseVote</h2>
       </div>
-      <div className="read-the-docs">{<DisplayTestData />}</div>
+      <div className="read-the-docs">
+      
+      </div>
     </>
   );
 }
