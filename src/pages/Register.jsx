@@ -1,4 +1,4 @@
-import TextInput from "../components/input.jsx";
+import { TextInput } from "../components/Input.jsx";
 export default function Register() {
   return (
     <>

@@ -4,7 +4,7 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import AuthLayout from "./layout/AuthLayout";
 import { Outlet } from "react-router-dom";
-import TextInput from "./components/input";
+import TextInput from "./components/Input";
 
 function App() {
   const [count, setCount] = useState(0);
