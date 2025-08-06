@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import reactLogo from "./assets/react.svg";
+import { Link } from "react-router";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import AuthLayout from "./layout/AuthLayout";
+
 import { Outlet } from "react-router-dom";
 import TextInput from "./components/Input";
 
@@ -26,9 +27,8 @@ function App() {
           count is {count}
         </button>
         <h2>Welcome to PulseVote</h2>
+     <Link to="/login">Login again</Link>
       </div>
-
-      <Outlet />
     </>
   );
 }
