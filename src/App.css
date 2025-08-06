@@ -34,6 +34,7 @@
 }
 button {
   background-color: var(--primary);
+
   color: var(--text);
   transition: box-shadow 1s;
 }
@@ -48,20 +49,24 @@ input {
   border-width: 1px;
   border-style: solid;
   border-radius: 5%;
-  height: clamp(2rem, 10vw, 3rem);
+  height: clamp(1rem, 2vw, 2rem);
+  width: clamp(2rem, 10vw, 15rem);
   padding: 1rem;
 }
 input:focus {
   border-color: var(--accent);
 }
-h1
+main{
+  background-color: var(--surface) ;
+}
 form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+ 
+  justify-content: center;
   width: clamp(5rem, 25vw, 20rem);
-  height: clamp(5rem, 25vw, 20rem);
+  height: clamp(20rem, 35vw, 40rem);
 }
 @keyframes logo-spin {
   from {

@@ -8,15 +8,15 @@ export default function Login() {
       </header>
       <main>
         <form action="" className="">
-          <TextInput id="email" />
+<TextInput id="email" > placeholder</TextInput>
           <TextInput id="password" />
-          <button type="submit"></button>
+          <button type="submit">Sign in</button>
         </form>
+        <div className="account-setup">
+          <Link to="/register">Sign up</Link>
+        </div>
       </main>
 
-      <div className="account-setup">
-        <Link to="/register">Sign up</Link>
-      </div>
       <footer>
         <p> follow us</p>
       </footer>

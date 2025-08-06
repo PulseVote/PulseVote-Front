@@ -1,20 +1,26 @@
-import axios from "./axios.config.js";
+import { api } from "./axios.config.js";
 
-const api = axios;
-
-async function login() {
+async function login(req) {
   try {
-    const response = axios.get("/auth/login");
+    const response = api.get("/auth/login");
     const data = response.data;
     console.log(data);
   } catch (error) {
     console.log(error);
   }
 }
-
-async function register() {
+// we will send an object to this so thatt we can deconstruct it
+async function register(userInfo) {
   try {
-    const response = axios.post("/auth/register");
+    if (!req) throw Error("Invlaid data exception");
+    const signUpDate = new Date();
+    const { username, email, password } = userInfo;
+    const response = await axios.post("/auth/register", {
+      username: username,
+      password: password,
+      email: email,
+      signUpDate: signUpDate,
+    });
     const data = response.data;
     console.log(data);
   } catch (err) {
