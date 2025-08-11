@@ -5,12 +5,7 @@ export default function TextInput(placeholder) {
   return (
     <>
       <form>
-        <input
-          type="text"
-          value={name}
-          placeholder={placeholder}
-          onChange={(e) => setName(e.target.value)}
-        />
+        
       </form>
     </>
   );

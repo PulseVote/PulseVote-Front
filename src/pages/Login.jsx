@@ -8,7 +8,7 @@ export default function Login() {
       </header>
       <main>
         <form action="" className="">
-<TextInput id="email" > placeholder</TextInput>
+          <TextInput id="email"> placeholder</TextInput>
           <TextInput id="password" />
           <button type="submit">Sign in</button>
         </form>
