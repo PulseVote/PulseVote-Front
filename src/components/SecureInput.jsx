@@ -1,5 +1,5 @@
 import { useState } from "react";
-export function SecureInput({ placeHolder, input, setInput }) {
+export function SecureInput({ placeHolder, input, setInput, errorMessage }) {
   return (
     <>
       <input
@@ -8,6 +8,7 @@ export function SecureInput({ placeHolder, input, setInput }) {
         placeholder={placeHolder}
         onChange={(event) => setInput(event.target.value)}
       />
+      <label>{errorMessage} </label>
     </>
   );
 }
