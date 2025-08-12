@@ -20,16 +20,19 @@ export default function Register() {
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const onRegister = async (e) => {
-    // validate the email and password with regex,
-    // make sure we return a error on the screen.
-    // if successful register, navigate to login.
-    // throw valid errors on the screen for user to see
+  const ResetState = () => {
     setEmailError("");
     setUsernameError("");
     setPasswordError("");
     setConfirmPasswordError("");
     setErrorMessage("");
+  };
+  const onRegister = async (e) => {
+    // validate the email and password with regex,
+    // make sure we return a error on the screen.
+    // if successful register, navigate to login.
+    // throw valid errors on the screen for user to see
+    ResetState();
     setLoading(true);
     const validEmail = isValidEmail({ email });
     const validUsername = isValidUsername({ username });
@@ -92,17 +95,7 @@ export default function Register() {
             setInput={setConfirmPassword}
             errorMessage={confirmPasswordError}
           />
-          <button
-            onClick={() =>
-              onRegister({
-                username,
-                password,
-                email,
-                confirmPassword,
-              })
-            }
-            type="button"
-          >
+          <button onClick={onRegister()} type="button">
             Register
           </button>
         </form>
