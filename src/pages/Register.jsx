@@ -3,27 +3,23 @@ import { Link } from "react-router-dom";
 import { register } from "../api/auth.js";
 import TextInput from "../components/Input.jsx";
 import { SecureInput } from "../components/SecureInput.jsx";
-function onRegister(e) {
+const onRegister = ({ username, password, email, confirmPassword }) => {
   // validate the email and password with regex,
   // make sure we return a error on the screen.
   // if successful register, navigate to login.
   // throw valid errors on the screen for user to see
   if (!username || !email || !password || !confirmPassword) {
-    e.preventDefault();
-
-    updateEmail("");
-    updateUsername("");
+    console.log("some data is missing");
   }
-  if (passsword !== confirmPassword) {
-    updatePassword("");
-    updateConfirmPassword("");
+  if (password !== confirmPassword) {
+    console.log("passwords dont match");
   }
   try {
-    const response = register({ email, passsword, username });
+    const response = register({ email, password, username });
   } catch (err) {
     console.log(err);
   }
-}
+};
 export default function Register() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -38,11 +34,37 @@ export default function Register() {
         </header>
         <main>
           <form action="">
-            <TextInput placeholder={"Email"} input={email} setInput={setEmail}/>
-            <TextInput placeholder={"Username"} input={ username} setInput={setUsername}/>
-            <SecureInput placeholder={"Password"} input={password} setInput={setPassword}/>
-            <SecureInput placeholder={"Confirm password"} input={confirmPassword} setInput={setConfirmPassword} />
-            <button onClick={register()} type="submit">
+            <TextInput
+              placeHolder={"Email"}
+              input={email}
+              setInput={setEmail}
+            />
+            <TextInput
+              placeHolder={"Username"}
+              input={username}
+              setInput={setUsername}
+            />
+            <SecureInput
+              placeHolder={"Password"}
+              input={password}
+              setInput={setPassword}
+            />
+            <SecureInput
+              placeHolder={"Confirm password"}
+              input={confirmPassword}
+              setInput={setConfirmPassword}
+            />
+            <button
+              onClick={() =>
+                onRegister({
+                  username,
+                  password,
+                  email,
+                  confirmPassword,
+                })
+              }
+              type="button"
+            >
               Register
             </button>
           </form>

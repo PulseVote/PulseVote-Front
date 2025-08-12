@@ -7,7 +7,7 @@ export default function TextInput({ placeHolder, input, setInput }) {
       <input
         type="text"
         value={input}
-        placeholder={placeholder}
+        placeholder={placeHolder}
         onChange={(event) => setInput(event.target.value)}
       />
     </>
