@@ -3,29 +3,38 @@ import { Link } from "react-router-dom";
 import { register } from "../api/auth.js";
 import TextInput from "../components/Input.jsx";
 import { SecureInput } from "../components/SecureInput.jsx";
-const onRegister = ({ username, password, email, confirmPassword }) => {
-  // validate the email and password with regex,
-  // make sure we return a error on the screen.
-  // if successful register, navigate to login.
-  // throw valid errors on the screen for user to see
-  if (!username || !email || !password || !confirmPassword) {
-    console.log("some data is missing");
-  }
-  if (password !== confirmPassword) {
-    console.log("passwords dont match");
-  }
-  try {
-    const response = register({ email, password, username });
-  } catch (err) {
-    console.log(err);
-  }
-};
+
 export default function Register() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [usernameError, setUsernameEror] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const onRegister = (e) => {
+    // validate the email and password with regex,
+    // make sure we return a error on the screen.
+    // if successful register, navigate to login.
+    // throw valid errors on the screen for user to see
 
+    const validEmail = isValidEmail({ email });
+    if (password != confirmPassword) {
+    }
+    const validPassword = isValidPassword({ password, confirmPassword });
+    setConfirmPasswordError(
+      "Atleast 8 characters long, 1 special character, and an uppercase letter"
+    );
+    if (password !== confirmPassword) {
+      setConfirmPasswordError("");
+    }
+    try {
+      const response = register({ email, password, username });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <>
       <>
