@@ -13,24 +13,39 @@ export default function Register() {
   const [usernameError, setUsernameEror] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setLoading] = useState(false);
   const onRegister = (e) => {
     // validate the email and password with regex,
     // make sure we return a error on the screen.
     // if successful register, navigate to login.
     // throw valid errors on the screen for user to see
 
+    setLoading(true);
     const validEmail = isValidEmail({ email });
-    if (password != confirmPassword) {
+    const validUsername = isValidUsername({ username });
+    const validPassword = isValidPassword({ password });
+    if (!username || !password || !confirmPassword || !email) {
+      return setErrorMessage("There is some missing data in the fields!");
     }
-    const validPassword = isValidPassword({ password, confirmPassword });
-    setConfirmPasswordError(
-      "Atleast 8 characters long, 1 special character, and an uppercase letter"
-    );
+
+    if (!validPassword) {
+      return setPassword(
+        "Atleast 8 characters long, 1 special character, and an uppercase letter"
+      );
+    }
+    if (!validUsername) {
+      return setPassword("Atleast 4 characters long, and an uppercase letter");
+    }
+    if (!validEmail) {
+      return setPassword("The password is invalid");
+    }
     if (password !== confirmPassword) {
-      setConfirmPasswordError("");
+      return setConfirmPasswordError("Passwords do not match");
     }
     try {
       const response = register({ email, password, username });
+     
     } catch (err) {
       console.log(err);
     }

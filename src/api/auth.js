@@ -10,6 +10,7 @@ export async function login(userInfo) {
   }
 }
 // we will send an object to this so thatt we can deconstruct it
+
 export async function register(userInfo) {
   try {
     console.log(userInfo);
@@ -24,9 +25,16 @@ export async function register(userInfo) {
       signUpDate: signUpDate,
     });
 
-    const data = response.data;
-    console.log(data);
-    return response.data;
+    const message = response.data.message;
+    if (response.status == 400 || response.status == 409) {
+      throw Error("There was an error trying to register");
+    }
+    if (response.status == 500) {
+      throw Error(
+        "There was an issue registerring " + response.data.errorMessage
+      );
+    }
+    return message;
   } catch (err) {
     console.log(err);
   }

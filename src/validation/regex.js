@@ -3,9 +3,9 @@ function isValidEmail({ email }) {
   return emailRegex.test(email);
 }
 
-function isValidPassword({ password, confirmPassword }) {
+function isValidPassword({ password }) {
   const passwordRegex = /^(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
-  if (password != confirmPassword) return passwordRegex.test(password);
+  return passwordRegex.test(password);
 }
 
 function isValidUsername({ username }) {
