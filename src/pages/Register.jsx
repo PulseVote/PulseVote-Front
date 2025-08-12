@@ -1,6 +1,8 @@
-import TextInput from "../components/Input";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { register } from "../api/auth.js";
+import TextInput from "../components/Input.jsx";
+import { SecureInput } from "../components/SecureInput.jsx";
 function onRegister(e) {
   // validate the email and password with regex,
   // make sure we return a error on the screen.
@@ -16,14 +18,17 @@ function onRegister(e) {
     updatePassword("");
     updateConfirmPassword("");
   }
-  register({ email, passsword, username });
-
+  try {
+    const response = register({ email, passsword, username });
+  } catch (err) {
+    console.log(err);
+  }
 }
 export default function Register() {
-  const [email, updateEmail] = useState("");
-  const [username, updateUsername] = useState("");
-  const [password, updatePassword] = useState("");
-  const [confirmPassword, updateConfirmPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   return (
     <>
@@ -33,28 +38,10 @@ export default function Register() {
         </header>
         <main>
           <form action="">
-            <input
-              type="text"
-              value={email}
-              placeholder={"Add your email"}
-              onChange={(e) => updateEmail(e.target.value)}
-            />
-            <input
-              type="text"
-              value={username}
-              placeholder={"Username"}
-              onChange={(e) => updateUsername(e.target.value)}
-            />
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => updatePassword(e.target.value)}
-            />
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => updateConfirmPassword(e.target.value)}
-            />
+            <TextInput placeholder={"Email"} input={email} setInput={setEmail}/>
+            <TextInput placeholder={"Username"} input={ username} setInput={setUsername}/>
+            <SecureInput placeholder={"Password"} input={password} setInput={setPassword}/>
+            <SecureInput placeholder={"Confirm password"} input={confirmPassword} setInput={setConfirmPassword} />
             <button onClick={register()} type="submit">
               Register
             </button>

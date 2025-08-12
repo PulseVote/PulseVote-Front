@@ -8,9 +8,9 @@ export default function Login() {
       </header>
       <main>
         <form action="" className="">
-          <TextInput id="email"> placeholder</TextInput>
-          <TextInput id="password" />
-          <button type="submit">Sign in</button>
+          <TextInput id="email" placeholder={"Email"} />
+          <TextInput id="password" placeholder={"Password"} />
+          <button type="submit" onClick={()=>{}}>Sign in</button> 
         </form>
         <div className="account-setup">
           <Link to="/register">Sign up</Link>

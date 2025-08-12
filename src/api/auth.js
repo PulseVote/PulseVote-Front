@@ -22,10 +22,9 @@ export async function register(userInfo) {
       signUpDate: signUpDate,
     });
     const data = response.data;
-    return response.data;
     console.log(data);
+    return response.data;
   } catch (err) {
     console.log(err);
   }
 }
-

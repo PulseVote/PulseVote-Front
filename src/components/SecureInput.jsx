@@ -1,15 +1,13 @@
 import { useState } from "react";
-export function SecureInput() {
-  const [password, setPassword] = useState("");
+export function SecureInput({ placeHolder, input, setInput }) {
   return (
     <>
-      <form>
-        <input
-          type="password"
-          value={password}
-          onChange={(updated) => setName(updated.target.value)}
-        />
-      </form>
+      <input
+        type="password"
+        value={input}
+        placeholder={placeHolder}
+        onChange={(event) => setInput(event.target.value)}
+      />
     </>
   );
 }
