@@ -8,7 +8,19 @@ export async function login(userInfo) {
       username: username,
       password: password,
     });
-    const data = response.data;
+
+    if (!response) {
+      throw Error("No response found, check if you are on the internet");
+    }
+    switch (response.status) {
+      case 400:
+        throw Error("You have sent an invalid email or password format");
+      case 401:
+        throw Error("Incorrect username or password");
+      case 404:
+        throw Error("User doe not exist");
+    }
+response.
     console.log(data);
   } catch (error) {
     console.log(error);
@@ -31,8 +43,11 @@ export async function register(userInfo) {
     });
 
     const message = response.data.message;
-    if (response.status == 400 || response.status == 409) {
-      throw Error("There was an error trying to register");
+    if (response.status == 400) {
+      throw Error("You sent invalid data");
+    }
+    if (response.status == 409) {
+      throw Error("This email is already in use");
     }
     if (response.status == 500) {
       throw Error(
