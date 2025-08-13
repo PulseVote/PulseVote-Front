@@ -25,3 +25,10 @@ api.interceptors.response.use(undefined, async (error) => {
   }
   return error;
 });
+
+api.interceptors.request.use(async (config) => {
+  if (accessToken) {
+    config.headers.authorization = `Bearer ${accessToken}`;
+  }
+  return config;
+});
