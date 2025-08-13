@@ -12,7 +12,9 @@ api.interceptors.response.use(undefined, async (error) => {
   if (error.response?.status == 401 && !error.config._retry) {
     try {
       error.config._retry = true;
-      const refreshRes = await api.get("api/auth/refresh");
+      const refreshRes = await api.get("api/auth/refresh", {
+        withCredentials: true,
+      });
       const newToken = refreshRes.headers["authorization"];
       accessToken = newToken;
       error.config.headers.authorization = `Bearer ${token}`;
