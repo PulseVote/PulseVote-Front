@@ -4,8 +4,8 @@ export async function login(userInfo) {
   try {
     if (!userInfo) throw Error("Invlaid data exception");
     const { email, password } = userInfo;
-    const response = await api.get("/auth/login", {
-      username: username,
+    const response = await api.post("/auth/login", {
+      email: email,
       password: password,
     });
 
@@ -16,11 +16,15 @@ export async function login(userInfo) {
       case 400:
         throw Error("You have sent an invalid email or password format");
       case 401:
-        throw Error("Incorrect username or password");
+        throw Error("Incorrect email or password");
       case 404:
         throw Error("User doe not exist");
     }
-response.
+    const refreshToken = response.headers["authorization"];
+
+    if (!refreshToken == null) {
+      
+    }
     console.log(data);
   } catch (error) {
     console.log(error);
