@@ -8,8 +8,13 @@ export default function Login() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const ResetState = () => {
+    setEmailError("");
+    setPasswordError("");
+    setErrorMessage("");
+  };
   const onLogin = async () => {
-    // this will be used to call the logiin func
+    ResetState();
   };
   return (
     <>
