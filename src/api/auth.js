@@ -8,27 +8,33 @@ export async function login(userInfo) {
       email: email,
       password: password,
     });
-
+    const output = {
+      message: "",
+      success: false,
+    };
     if (!response) {
-      throw Error("No response found, check if you are on the internet");
+      output.message = "No response found, check if you are on the internet";
     }
     switch (response.status) {
       case 400:
-        throw Error("You have sent an invalid email or password format");
-      case 401:
-        throw Error("Incorrect email or password");
+        output.message = "You have sent an invalid email or password format";
       case 404:
-        throw Error("User doe not exist");
+        output.message = "User does not exist";
     }
-    const accessToken = response.headers["authorization"];
-
+    const accessToken = response.headers["authorization"].split(" ")[1];
     if (!accessToken == null) {
-      throw Error("SOmething was not right with logging you in.");
+      output.message = "Something was not right with logging you in.";
     }
     getAccessToken(token);
-    console.log(data);
+    output.message = `Successfully logged in ${email}`;
+    output.success = true;
+    return output;
   } catch (error) {
     console.log(error);
+    return {
+      message: `There was an error when trying to login: ${error}`,
+      success: false,
+    };
   }
 }
 // we will send an object to this so thatt we can deconstruct it

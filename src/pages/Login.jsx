@@ -1,14 +1,16 @@
 import { useState } from "react";
 import TextInput from "../components/Input";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { isValidEmail, isValidPassword } from "../validation/regex";
 import { login } from "../api/auth";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [loading, setLoading] = useState(false);
+  const [successfulLogin, setSuccessfulLogin] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+
   const [errorMessage, setErrorMessage] = useState("");
   const ResetState = () => {
     setEmailError("");
@@ -16,6 +18,7 @@ export default function Login() {
     setErrorMessage("");
   };
   const onLogin = async () => {
+    setLoading((prevstate) => !prevstate);
     ResetState();
     if (!email || !password) {
       return setErrorMessage("You have set in empty data");
@@ -31,8 +34,16 @@ export default function Login() {
         "Must be atleast 4 Characters long containing 1 uppercase"
       );
     }
-    
-    const response = login()
+    try {
+      const { message, success } = login({ email, password });
+      if (!success) {
+        return setErrorMessage(message);
+      }
+      setSuccessfulLogin(true);
+      setLoading((prevstate) => !prevstate);
+    } catch (error) {
+      return setErrorMessage(error);
+    }
   };
   return (
     <>
