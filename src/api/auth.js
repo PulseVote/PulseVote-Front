@@ -12,22 +12,23 @@ export async function login(userInfo) {
       message: "",
       success: false,
     };
-    if (!response) {
-      output.message = "No response found, check if you are on the internet";
-    }
     switch (response.status) {
+      case 200:
+        output.message = `Successfully logged in ${email}`;
+        output.success = true;
+        break;
       case 400:
         output.message = "You have sent an invalid email or password format";
+        break;
       case 404:
         output.message = "User does not exist";
+        break;
     }
     const accessToken = response.headers["authorization"].split(" ")[1];
-    if (!accessToken == null) {
+    if (!accessToken) {
       output.message = "Something was not right with logging you in.";
     }
-    getAccessToken(token);
-    output.message = `Successfully logged in ${email}`;
-    output.success = true;
+    getAccessToken(accessToken);
     return output;
   } catch (error) {
     console.log(error);
