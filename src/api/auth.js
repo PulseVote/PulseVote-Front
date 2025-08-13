@@ -1,4 +1,4 @@
-import { api } from "./axios.config.js";
+import { api, getAccessToken } from "./axios.config.js";
 
 export async function login(userInfo) {
   try {
@@ -20,11 +20,12 @@ export async function login(userInfo) {
       case 404:
         throw Error("User doe not exist");
     }
-    const refreshToken = response.headers["authorization"];
+    const accessToken = response.headers["authorization"];
 
-    if (!refreshToken == null) {
-      
+    if (!accessToken == null) {
+      throw Error("SOmething was not right with logging you in.");
     }
+    getAccessToken(token);
     console.log(data);
   } catch (error) {
     console.log(error);

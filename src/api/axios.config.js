@@ -5,7 +5,21 @@ export const api = axios.create({
   withCredentials: true,
 });
 const accessToken = null;
-function getAccessToken(token) {
+export function getAccessToken(token) {
   accessToken = token;
 }
-api.interceptors.request;
+api.interceptors.response.use(undefined, async (error) => {
+  if (error.response?.status == 401 && !error.config._retry) {
+    try {
+      error.config._retry = true;
+      const refreshRes = await api.get("api/auth/refresh");
+      const newToken = refreshRes.headers["authorization"];
+      accessToken = newToken;
+      error.config.headers.authorization = `Bearer ${token}`;
+      return api(error.config);
+    } catch (err) {
+      return Promise.reject(err);
+    }
+  }
+  return error;
+});
