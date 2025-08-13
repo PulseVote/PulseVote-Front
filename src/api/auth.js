@@ -2,7 +2,12 @@ import { api } from "./axios.config.js";
 
 export async function login(userInfo) {
   try {
-    const response = await api.get("/auth/login");
+    if (!userInfo) throw Error("Invlaid data exception");
+    const { email, password } = userInfo;
+    const response = await api.get("/auth/login", {
+      username: username,
+      password: password,
+    });
     const data = response.data;
     console.log(data);
   } catch (error) {

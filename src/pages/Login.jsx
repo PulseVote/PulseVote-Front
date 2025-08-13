@@ -1,6 +1,8 @@
 import { useState } from "react";
 import TextInput from "../components/Input";
 import { Link } from "react-router-dom";
+import { isValidEmail, isValidPassword } from "../validation/regex";
+import { login } from "../api/auth";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,6 +17,22 @@ export default function Login() {
   };
   const onLogin = async () => {
     ResetState();
+    if (!email || !password) {
+      return setErrorMessage("You have set in empty data");
+    }
+    const validEmail = isValidEmail({ email });
+    const validPassword = isValidPassword({ password });
+    if (!validEmail) {
+      // this this will be integrated with email confirmation
+      return setEmailError("This is not a valid email address");
+    }
+    if (!validPassword) {
+      return setPasswordError(
+        "Must be atleast 4 Characters long containing 1 uppercase"
+      );
+    }
+    
+    const response = login()
   };
   return (
     <>
