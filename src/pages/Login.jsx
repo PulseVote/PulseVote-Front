@@ -4,13 +4,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { login } from "../api/auth";
 import { isValidEmail, isValidPassword } from "../validation/regex";
 import { SecureInput } from "../components/SecureInput";
+import { useEffect } from "react";
 export default function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [success, setSuccess] = useState(false);
   const ResetState = () => {
     setEmailError("");
     setPasswordError("");
@@ -34,16 +37,21 @@ export default function Login() {
       if (!success) {
         setErrorMessage(message);
       } else {
-        setSuccessfulLogin(true);
         console.log("navigate to home");
-        Navigate("/dashboard");
+        setSuccess(true);
       }
     } catch (error) {
-      setErrorMessage(error);
+      console.log(error);
+      setErrorMessage("Something went wrong when trying to log you in");
     } finally {
       setLoading(false);
     }
   };
+  // display a nice message for them in some modal, possibly look at creating a auth listener
+  // create a dashboard screen
+  useEffect(() => {
+    if (success) navigate("/");
+  }, [success, navigate]);
   return (
     <>
       <header>
