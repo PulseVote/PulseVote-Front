@@ -17,9 +17,8 @@ export async function login(userInfo) {
     }
     if (response.status == 200) {
       const { accessToken } = response.headers["authorization"].split(" ")[1];
-      accessToken != null
-        ? getAccessToken(accessToken)
-        : (output.message = "There was an error authorizing you.");
+      getAccessToken(accessToken);
+      output.success = true;
     }
     return output;
   } catch (error) {

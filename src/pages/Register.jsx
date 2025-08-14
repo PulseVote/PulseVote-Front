@@ -31,7 +31,7 @@ export default function Register() {
     if (!username || !password || !confirmPassword || !email)
       setErrorMessage("There is some missing data in the fields!");
 
-    if (isValidUsername(username))
+    if (!isValidUsername(username))
       setUsernameError("Atleast 4 characters long, and an uppercase letter");
 
     if (!isValidEmail(email)) setEmailError("Invalid email format");
@@ -96,7 +96,7 @@ export default function Register() {
             setInput={setConfirmPassword}
             errorMessage={confirmPasswordError}
           />
-          <button onClick={onRegister()} type="button">
+          <button onClick={onRegister} type="button">
             Register
           </button>
         </form>

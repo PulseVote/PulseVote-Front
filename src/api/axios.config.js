@@ -4,7 +4,7 @@ export const api = axios.create({
   timeout: 5000,
   withCredentials: true,
 });
-const accessToken = null;
+let accessToken = null;
 export function getAccessToken(token) {
   accessToken = token;
 }
@@ -15,9 +15,9 @@ api.interceptors.response.use(undefined, async (error) => {
       const refreshRes = await api.get("api/auth/refresh", {
         withCredentials: true,
       });
-      const newToken = refreshRes.headers["authorization"];
+      const newToken = refreshRes.headers["authorization"].split(" ")[1];
       accessToken = newToken;
-      error.config.headers.authorization = `Bearer ${token}`;
+      error.config.headers.authorization = `Bearer ${newToken}`;
       return api(error.config);
     } catch (err) {
       return Promise.reject(err);
