@@ -43,10 +43,6 @@ export default function Register() {
       setConfirmPasswordError("Passwords do not match");
   };
   const onRegister = async (e) => {
-    // validate the email and password with regex,
-    // make sure we return a error on the screen.
-    // if successful register, navigate to login.
-    // throw valid errors on the screen for user to see
     ResetState();
     setLoading(true);
     ValidateInput();

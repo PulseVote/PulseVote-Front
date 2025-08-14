@@ -44,7 +44,6 @@ export async function register(userInfo) {
   try {
     console.log(userInfo);
     if (!userInfo) throw Error("Invlaid data exception");
-
     const signUpDate = new Date();
     const { username, email, password } = userInfo;
     const response = await api.post("api/auth/register", {
@@ -53,21 +52,15 @@ export async function register(userInfo) {
       email: email,
       signUpDate: signUpDate,
     });
-
-    const message = response.data.message;
-    if (response.status == 400) {
-      throw Error("You sent invalid data");
-    }
-    if (response.status == 409) {
-      throw Error("This email is already in use");
-    }
-    if (response.status == 500) {
-      throw Error(
-        "There was an issue registerring " + response.data.errorMessage
-      );
-    }
-    return message;
+    const output = {
+      message: "",
+      success: false,
+    };
+    output.success = response.status === 201; // if its true, return true
+    output.message = response.data.message;
+    return output;
   } catch (err) {
     console.log(err);
+    return { message: "Unable to register user", success: false };
   }
 }
