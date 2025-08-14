@@ -1,14 +1,14 @@
-export function isValidEmail({ email }) {
+export function isValidEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 }
 
-export function isValidPassword({ password }) {
+export function isValidPassword(password) {
   const passwordRegex = /^(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
   return passwordRegex.test(password);
 }
 
-export function isValidUsername({ username }) {
+export function isValidUsername(username) {
   const usernameRegex = /^(?=.*[A-Z])[A-Za-z0-9_]{4,}$/;
   return usernameRegex.test(username);
 }

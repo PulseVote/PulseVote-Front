@@ -34,9 +34,9 @@ export default function Register() {
     // throw valid errors on the screen for user to see
     ResetState();
     setLoading(true);
-    const validEmail = isValidEmail({ email });
-    const validUsername = isValidUsername({ username });
-    const validPassword = isValidPassword({ password });
+    const validEmail = isValidEmail(email);
+    const validUsername = isValidUsername(username);
+    const validPassword = isValidPassword(password);
     if (!username || !password || !confirmPassword || !email) {
       return setErrorMessage("There is some missing data in the fields!");
     }

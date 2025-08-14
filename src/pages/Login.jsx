@@ -1,48 +1,43 @@
 import { useState } from "react";
 import TextInput from "../components/Input";
 import { Link, NavLink } from "react-router-dom";
-import { isValidEmail, isValidPassword } from "../validation/regex";
 import { login } from "../api/auth";
+import { isValidEmail, isValidPassword } from "../validation/regex";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [successfulLogin, setSuccessfulLogin] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
   const [errorMessage, setErrorMessage] = useState("");
   const ResetState = () => {
     setEmailError("");
     setPasswordError("");
     setErrorMessage("");
   };
-  const onLogin = async () => {
-    setLoading((prevstate) => !prevstate);
-    ResetState();
-    if (!email || !password) {
-      return setErrorMessage("You have set in empty data");
-    }
-    const validEmail = isValidEmail({ email });
-    const validPassword = isValidPassword({ password });
-    if (!validEmail) {
-      // this this will be integrated with email confirmation
-      return setEmailError("This is not a valid email address");
-    }
-    if (!validPassword) {
-      return setPasswordError(
-        "Must be atleast 4 Characters long containing 1 uppercase"
+  const ValidateInput = () => {
+    if (!email || !password) setErrorMessage("You have set in empty data");
+
+    if (!isValidEmail(email)) setEmailError("Invalid email format");
+    if (!isValidPassword(password))
+      setPasswordError(
+        "Must be atleast 8 characters long, 1 uppercase, 1 alphanumeric"
       );
-    }
+  };
+  const onLogin = async () => {
+    setLoading(true);
+    ResetState();
+    ValidateInput();
     try {
-      const { message, success } = login({ email, password });
+      const { message, success } = await login({ email, password });
       if (!success) {
         return setErrorMessage(message);
       }
       setSuccessfulLogin(true);
-      setLoading((prevstate) => !prevstate);
     } catch (error) {
       return setErrorMessage(error);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -52,6 +47,7 @@ export default function Login() {
       </header>
       <main>
         <form action="" className="">
+          <p>{errorMessage}</p>
           <TextInput
             id="email"
             placeHolder={"Email"}
