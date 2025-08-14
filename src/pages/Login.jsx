@@ -3,6 +3,7 @@ import TextInput from "../components/Input";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../api/auth";
 import { isValidEmail, isValidPassword } from "../validation/regex";
+import { SecureInput } from "../components/SecureInput";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,7 +35,8 @@ export default function Login() {
         setErrorMessage(message);
       } else {
         setSuccessfulLogin(true);
-        useNavigate("/dashboard");
+        console.log("navigate to home");
+        Navigate("/dashboard");
       }
     } catch (error) {
       setErrorMessage(error);
@@ -57,14 +59,14 @@ export default function Login() {
             setInput={setEmail}
             errorMessage={emailError}
           />
-          <TextInput
+          <SecureInput
             id="password"
             placeHolder={"Password"}
             input={password}
             setInput={setPassword}
             errorMessage={passwordError}
           />
-          <button type="submit" onClick={onLogin}>
+          <button type="button" onClick={onLogin}>
             Sign in
           </button>
         </form>

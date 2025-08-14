@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { register } from "../api/auth.js";
 import TextInput from "../components/Input.jsx";
 import { SecureInput } from "../components/SecureInput.jsx";
@@ -55,7 +55,7 @@ export default function Register() {
       if (!success) {
         setErrorMessage(message);
       } else {
-        useNavigate("/login");
+        Navigate("/login");
       }
     } catch (err) {
       console.log(err);

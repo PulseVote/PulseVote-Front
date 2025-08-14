@@ -4,7 +4,7 @@ export async function login(userInfo) {
   try {
     if (!userInfo) throw Error("Invlaid data exception");
     const { email, password } = userInfo;
-    const response = await api.post("/auth/login", {
+    const response = await api.post("api/auth/login", {
       email: email,
       password: password,
     });
@@ -16,15 +16,13 @@ export async function login(userInfo) {
       output.message = response.data.errorMessage;
     }
     if (response.status == 200) {
-      const { accessToken } = response.headers["authorization"].split(" ")[1];
-      getAccessToken(accessToken);
       output.success = true;
     }
     return output;
   } catch (error) {
     console.log(error);
     return {
-      message: `There was an error when trying to login: ${error}`,
+      message: `There was an error when trying to login`,
       success: false,
     };
   }
