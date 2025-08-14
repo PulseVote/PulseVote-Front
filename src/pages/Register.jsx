@@ -27,6 +27,21 @@ export default function Register() {
     setConfirmPasswordError("");
     setErrorMessage("");
   };
+  const ValidateInput = () => {
+    if (!username || !password || !confirmPassword || !email)
+      setErrorMessage("There is some missing data in the fields!");
+
+    if (isValidUsername(username))
+      setUsernameError("Atleast 4 characters long, and an uppercase letter");
+
+    if (!isValidEmail(email)) setEmailError("Invalid email format");
+    if (!isValidPassword(password))
+      setPasswordError(
+        "Must be atleast 8 characters long, 1 uppercase, 1 alphanumeric"
+      );
+    if (password !== confirmPassword)
+      setConfirmPasswordError("Passwords do not match");
+  };
   const onRegister = async (e) => {
     // validate the email and password with regex,
     // make sure we return a error on the screen.
@@ -34,33 +49,15 @@ export default function Register() {
     // throw valid errors on the screen for user to see
     ResetState();
     setLoading(true);
-    const validEmail = isValidEmail(email);
-    const validUsername = isValidUsername(username);
-    const validPassword = isValidPassword(password);
-    if (!username || !password || !confirmPassword || !email) {
-      return setErrorMessage("There is some missing data in the fields!");
-    }
-
-    if (!validUsername) {
-      setUsernameError("Atleast 4 characters long, and an uppercase letter");
-    }
-    if (!validEmail) {
-      setEmailError("The email is invalid");
-    }
-    if (!validPassword) {
-      return setPasswordError(
-        "Atleast 8 characters long, 1 special character, and an uppercase letter"
-      );
-    }
-    if (password !== confirmPassword) {
-      return setConfirmPasswordError("Passwords do not match");
-    }
+    ValidateInput();
     try {
       const message = await register({ email, password, username });
       // now we navigate
     } catch (err) {
       console.log(err);
       return setErrorMessage("There was an error trying to register " + err);
+    } finally {
+      setLoading(false);
     }
   };
   return (
