@@ -1,6 +1,6 @@
 import { useState } from "react";
 import TextInput from "../components/Input";
-import { Link, NavLink } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../api/auth";
 import { isValidEmail, isValidPassword } from "../validation/regex";
 export default function Login() {
@@ -31,11 +31,13 @@ export default function Login() {
     try {
       const { message, success } = await login({ email, password });
       if (!success) {
-        return setErrorMessage(message);
+        setErrorMessage(message);
+      } else {
+        setSuccessfulLogin(true);
+        useNavigate("/dashboard");
       }
-      setSuccessfulLogin(true);
     } catch (error) {
-      return setErrorMessage(error);
+      setErrorMessage(error);
     } finally {
       setLoading(false);
     }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { register } from "../api/auth.js";
 import TextInput from "../components/Input.jsx";
 import { SecureInput } from "../components/SecureInput.jsx";
@@ -47,8 +47,16 @@ export default function Register() {
     setLoading(true);
     ValidateInput();
     try {
-      const message = await register({ email, password, username });
-      // now we navigate
+      const { message, success } = await register({
+        email,
+        password,
+        username,
+      });
+      if (!success) {
+        setErrorMessage(message);
+      } else {
+        useNavigate("/login");
+      }
     } catch (err) {
       console.log(err);
       return setErrorMessage("There was an error trying to register " + err);
