@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { register } from "../api/auth.js";
 import TextInput from "../components/Input.jsx";
 import { SecureInput } from "../components/SecureInput.jsx";
@@ -10,16 +10,20 @@ import {
 } from "../validation/regex.js";
 
 export default function Register() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
   const [emailError, setEmailError] = useState("");
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [isLoading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const ResetState = () => {
     setEmailError("");
     setUsernameError("");
@@ -27,22 +31,26 @@ export default function Register() {
     setConfirmPasswordError("");
     setErrorMessage("");
   };
+
   const ValidateInput = () => {
     if (!username || !password || !confirmPassword || !email)
       setErrorMessage("There is some missing data in the fields!");
 
     if (!isValidUsername(username))
-      setUsernameError("Atleast 4 characters long, and an uppercase letter");
+      setUsernameError("At least 4 characters long, and one uppercase letter");
 
     if (!isValidEmail(email)) setEmailError("Invalid email format");
+
     if (!isValidPassword(password))
       setPasswordError(
-        "Must be atleast 8 characters long, 1 uppercase, 1 alphanumeric"
+        "Must be at least 8 characters long, 1 uppercase, 1 alphanumeric"
       );
+
     if (password !== confirmPassword)
       setConfirmPasswordError("Passwords do not match");
   };
-  const onRegister = async (e) => {
+
+  const onRegister = async () => {
     ResetState();
     setLoading(true);
     ValidateInput();
@@ -52,62 +60,59 @@ export default function Register() {
         password,
         username,
       });
+
       if (!success) {
         setErrorMessage(message);
       } else {
-        Navigate("/login");
+        navigate("/login");
       }
     } catch (err) {
       console.log(err);
-      return setErrorMessage("There was an error trying to register " + err);
+      setErrorMessage("There was an error trying to register: " + err);
     } finally {
       setLoading(false);
     }
   };
-  return (
-    <>
-      <header>
-        <h1>Register Page</h1>
-      </header>
-      <main>
-        <form action="">
-          <label>{errorMessage}</label>
-          <TextInput
-            placeHolder={"Email"}
-            input={email}
-            setInput={setEmail}
-            errorMessage={emailError}
-          />
-          <TextInput
-            placeHolder={"Username"}
-            input={username}
-            setInput={setUsername}
-            errorMessage={usernameError}
-          />
-          <SecureInput
-            placeHolder={"Password"}
-            input={password}
-            setInput={setPassword}
-            errorMessage={passwordError}
-          />
-          <SecureInput
-            placeHolder={"Confirm password"}
-            input={confirmPassword}
-            setInput={setConfirmPassword}
-            errorMessage={confirmPasswordError}
-          />
-          <button onClick={onRegister} type="button">
-            Register
-          </button>
-        </form>
-      </main>
 
-      <div className="account-setup">
-        <Link to="/login">Sign in </Link>
+  return (
+    <main className="login-page">
+      <div className="login-card">
+        <h1>Create your PulseVote account</h1>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+
+        <TextInput
+          placeHolder="Email"
+          input={email}
+          setInput={setEmail}
+          errorMessage={emailError}
+        />
+        <TextInput
+          placeHolder="Username"
+          input={username}
+          setInput={setUsername}
+          errorMessage={usernameError}
+        />
+        <SecureInput
+          placeHolder="Password"
+          input={password}
+          setInput={setPassword}
+          errorMessage={passwordError}
+        />
+        <SecureInput
+          placeHolder="Confirm password"
+          input={confirmPassword}
+          setInput={setConfirmPassword}
+          errorMessage={confirmPasswordError}
+        />
+
+        <button type="button" onClick={onRegister} disabled={loading}>
+          {loading ? "Registering..." : "Register"}
+        </button>
+
+        <div className="account-setup">
+          <span>Already have an account?</span> <Link to="/login">Sign in</Link>
+        </div>
       </div>
-      <footer>
-        <p> follow us</p>
-      </footer>
-    </>
+    </main>
   );
 }

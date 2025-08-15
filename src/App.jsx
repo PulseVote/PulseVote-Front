@@ -1,36 +1,65 @@
-import { useState, useEffect } from "react";
-import reactLogo from "./assets/react.svg";
-import { Link } from "react-router";
-import viteLogo from "/vite.svg";
+import { Link, Outlet } from "react-router-dom";
 import "./App.css";
 
-import { Outlet } from "react-router-dom";
-import TextInput from "./components/Input";
-
-function App() {
-  const [count, setCount] = useState(0);
-
+export default function App() {
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
+      <main>
+        {/* Hero Section */}
+        <div className="landing-card">
+          <h1>PulseVote</h1>
+          <p>
+            At PulseVote, we put <strong>safety first</strong>. Every account,
+            poll, and vote is secured so you can participate confidently. <br />
+            Remember: <strong>every vote counts</strong>.
+          </p>
 
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <h2>Welcome to PulseVote</h2>
-     <Link to="/login">Login again</Link>
-      </div>
+          <div className="landing-actions">
+            <Link to="/login">
+              <button>Login</button>
+            </Link>
+            <Link to="/register">
+              <button>Create Account</button>
+            </Link>
+          </div>
+        </div>
+
+        {/* Features Section */}
+        <section className="features-section">
+          <h2>Features</h2>
+          <div className="features-grid">
+            <div className="feature-card">
+              <h3>Join Organizations</h3>
+              <p>
+                Connect with your teams and communities easily. Every
+                organization you join helps your voice be heard.
+              </p>
+            </div>
+            <div className="feature-card">
+              <h3>Create Polls</h3>
+              <p>
+                Create polls quickly for your organization and collect votes
+                securely. Your polls, your rules.
+              </p>
+            </div>
+            <div className="feature-card">
+              <h3>Vote Confidently</h3>
+              <p>
+                Cast your vote safely, knowing it counts. Every vote matters and
+                is recorded with privacy in mind.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="landing-footer">
+          <p>
+            &copy; {new Date().getFullYear()} PulseVote. All rights reserved.
+          </p>
+        </footer>
+      </main>
+      
     </>
   );
 }
-
-export default App;

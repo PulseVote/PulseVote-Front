@@ -6,19 +6,21 @@ import ReactDOM from "react-dom/client";
 
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
+import AppLayout from "./layout/AppLayout.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
-    Component: App, // i will add an about page soon
+    Component: AppLayout, // <-- root layout
+    children: [
+      { index: true, Component: App }, // default page
+      { path: "dashboard", Component: Dashboard },
+     // { path: "polls", Component: Polls },
+      //{ path: "profile", Component: Profile },
+    ],
   },
-  {
-    path: "register",
-    Component: Register,
-  },
-  {
-    path: "login",
-    Component: Login,
-  },
+  { path: "/login", Component: Login },
+  { path: "/register", Component: Register },
 ]);
 const root = document.getElementById("root");
 ReactDOM.createRoot(root).render(<RouterProvider router={router} />);
