@@ -51,15 +51,7 @@ export default function App() {
             </div>
           </div>
         </section>
-
-        {/* Footer */}
-        <footer className="landing-footer">
-          <p>
-            &copy; {new Date().getFullYear()} PulseVote. All rights reserved.
-          </p>
-        </footer>
       </main>
-      
     </>
   );
 }
